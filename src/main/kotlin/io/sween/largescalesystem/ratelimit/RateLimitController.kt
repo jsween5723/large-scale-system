@@ -9,7 +9,7 @@ import org.springframework.web.server.ResponseStatusException
 
 @RestController
 @RequestMapping("/rate-limit")
-class RateLimitController {
+class RateLimitController(private val rateLimiter: WindowRateLimiter) {
     @GetMapping("nginx")
     fun getRateLimit(): String {
         return "success"
@@ -23,6 +23,11 @@ class RateLimitController {
     @RateLimiter(name = "myRateLimitedService", fallbackMethod = "fallback")
     fun getResilience4j(): String {
         return "success"
+    }
+
+    @GetMapping("/redis")
+    fun redis(): String = rateLimiter.rateLimit("key", 500, 3) {
+        "success"
     }
 
     fun fallback(e: Throwable): String {

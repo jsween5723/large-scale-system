@@ -11,4 +11,8 @@ class RateLimitController {
     fun getRateLimit(): String {
         return "success"
     }
+    @GetMapping("bucket")
+    fun getBucket(): String {
+        return "success"
+    }
 }

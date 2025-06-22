@@ -65,12 +65,32 @@ class RateLimitControllerTest {
         assertThat(failRequest).isEqualTo(429)
     }
 
+    @Test
+    @DisplayName("resilience 4j")
+    fun `레질리언스`() {
+        val successRequest = IntRange(1, 3).map {
+            CompletableFuture.supplyAsync { sendResilience() }
+        }.toTypedArray()
+        CompletableFuture.allOf(*successRequest)
+        val failRequest = sendResilience()
+        println(successRequest.map { it.get() })
+        successRequest.forEach { assertThat(it.get()).isEqualTo(200) }
+        assertThat(failRequest).isEqualTo(429)
+    }
+
     private fun sendRequest(id: Int): Int {
         return mockMvc.get("/rate-limit/bucket") {
             header("Authorization", id.toString())
         }
             .andReturn().response.status
     }
+
+    private fun sendResilience(): Int {
+        return mockMvc.get("/rate-limit/resilience4j") {
+        }
+            .andReturn().response.status
+    }
+
 
     private fun 요청하기(): Int {
         return try {

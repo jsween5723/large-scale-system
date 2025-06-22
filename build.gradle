@@ -28,6 +28,7 @@ dependencies {
     implementation 'org.flywaydb:flyway-database-postgresql'
     implementation 'org.flywaydb:flyway-mysql'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    implementation 'com.bucket4j:bucket4j-core:8.8.0'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
     runtimeOnly 'org.postgresql:postgresql'

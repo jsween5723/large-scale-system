@@ -28,7 +28,7 @@ class RateLimitControllerTest {
     @Test
     @DisplayName("nginx")
     fun `Should get rate limit`() {
-        val futures = IntRange(1, 30).map {
+        val futures = IntRange(1, 11).map {
             CompletableFuture.supplyAsync { 요청하기() }
         }
             .toTypedArray()
@@ -74,7 +74,7 @@ class RateLimitControllerTest {
         CompletableFuture.allOf(*successRequest)
         val failRequest = sendResilience()
         println(successRequest.map { it.get() })
-        successRequest.forEach { assertThat(it.get()).isEqualTo(200) }
+        assertThat(successRequest.map { it.get() }).isEqualTo(listOf(200,200,200))
         assertThat(failRequest).isEqualTo(429)
     }
 

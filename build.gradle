@@ -24,15 +24,20 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+// https://mvnrepository.com/artifact/io.github.resilience4j/resilience4j-spring-boot3
+    implementation("io.github.resilience4j:resilience4j-spring-boot3:2.3.0")
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.flywaydb:flyway-database-postgresql'
     implementation 'org.flywaydb:flyway-mysql'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    implementation 'com.bucket4j:bucket4j-core:8.8.0'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
+    // https://mvnrepository.com/artifact/com.github.kstyrc/embedded-redis
+    testImplementation("com.github.codemonstur:embedded-redis:1.0.0")
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
